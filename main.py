@@ -1,18 +1,10 @@
-# This project is unfinished. I will work on it once I gain a bit more knowledge.
-# https://www.youtube.com/watch?v=b5jt2bhSeXs
+#Beautiful Soup
+import bs4 as bs
+import urllib.request
 
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-PATH = "C:\Program Files (x86)\chromedriver.exe"
-driver = webdriver.Chrome(PATH)
+sauce = urllib.request.urlopen('https://pythonprogramming.net/parsememcparseface/').read()
 
-driver.get("https://en.wikipedia.org/wiki/Python_(programming_language)")
-print(driver.title)
+soup = bs.BeautifulSoup(sauce,'lxml')
 
-search = driver.find_element_by_name("a")
-search.send_keys("Guido van Rossum")
-search.send_keys(Keys.RETURN)
-
-time.sleep(5)
-
-driver.quit()
+for url in soup.find_all('a'):
+    print(url.get('href'))
